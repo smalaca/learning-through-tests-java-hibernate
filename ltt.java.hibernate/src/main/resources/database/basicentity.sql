@@ -1,8 +1,4 @@
-DROP DATABASE IF EXISTS learningThroughTest;
-
-CREATE DATABASE learningThroughTest;
-
-USE learningThroughTest;
+USE learning_through_test;
 
 CREATE TABLE Person (
 	person_id MEDIUMINT UNSIGNED AUTO_INCREMENT NOT NULL,
