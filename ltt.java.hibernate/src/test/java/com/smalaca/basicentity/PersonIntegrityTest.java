@@ -8,11 +8,10 @@ import org.junit.Test;
 import com.smalaca.dbhandler.HibernateUtil;
 
 public class PersonIntegrityTest {
-
+	private final Session session = HibernateUtil.getSessionFactory().openSession();
 	
 	@Test
-	public void creat() {
-		Session session = HibernateUtil.getSessionFactory().openSession();
+	public void createAndRead() {
         session.beginTransaction();
 
 		Person sebastian = new Person("Sebastian Malaca", "Cracow, Poland");
@@ -33,17 +32,43 @@ public class PersonIntegrityTest {
 	}
 	
 	@Test
-	public void read() {
-
-	}
-	
-	@Test
 	public void update() {
+        session.beginTransaction();
 
+		Person sebastian = new Person("Sebastian Malaca", "Cracow, Poland");
+		Integer sebastianId = (Integer) session.save(sebastian);
+
+		Person sebastianFromDb = (Person) session.get(Person.class, sebastianId);
+		
+		String newAdderss = "New York, USA";
+		sebastian.changeAddress(newAdderss);
+		session.update(sebastian);
+
+		Person sebastianFromDbAfterUpdate = (Person) session.get(Person.class, sebastianId);
+
+		assertTrue(sebastian.equals(sebastianFromDb));
+		assertTrue(sebastianFromDb.equals(sebastianFromDbAfterUpdate));
+		assertTrue(sebastian.equals(sebastianFromDbAfterUpdate));
+		assertEquals(newAdderss, sebastian.getID().getAddress());
+		
+		session.getTransaction().rollback();
+		session.close();
 	}
 	
 	@Test
 	public void delete() {
+        session.beginTransaction();
 
+		Person sebastian = new Person("Sebastian Malaca", "Cracow, Poland");
+		Integer sebastianId = (Integer) session.save(sebastian);
+
+		session.delete(sebastian);
+		
+		Person notExisting = (Person) session.get(Person.class, sebastianId);
+
+		assertNull(notExisting);
+		
+		session.getTransaction().rollback();
+		session.close();
 	}
 }
