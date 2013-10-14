@@ -2,8 +2,6 @@ package com.smalaca.basicentity;
 
 import static org.junit.Assert.*;
 
-import java.io.Serializable;
-
 import org.hibernate.Session;
 import org.junit.Test;
 
