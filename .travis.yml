@@ -7,4 +7,4 @@ before_script:
   - cd ltt.java.hibernate
   - mysql -utravis < src/main/resources/database/schema_creation.sql
   - mysql -utravis < src/main/resources/database/basicentity.sql
-  - mvn exec:java -Dexec.mainClass="org.hsqldb.Server" -Dexec.args="-database.0 file:target/data/learning_through_test"
+  - mvn exec:java -Dexec.mainClass="org.hsqldb.Server" -Dexec.args="-database.0 file:target/data/learning_through_test" &
