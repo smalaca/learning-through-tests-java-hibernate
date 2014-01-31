@@ -1,4 +1,4 @@
-package com.smalaca.basicentity;
+package com.smalaca.domain.basicentity;
 
 import static org.junit.Assert.*;
 
@@ -6,6 +6,7 @@ import org.hibernate.Session;
 import org.junit.Test;
 
 import com.smalaca.dbhandler.HibernateUtil;
+import com.smalaca.domain.basicentity.Person;
 
 public class PersonIntegrityTest {
 	private final Session session = HibernateUtil.getSessionFactory().openSession();

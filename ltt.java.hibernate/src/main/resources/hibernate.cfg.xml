@@ -17,7 +17,7 @@
         <property name="show_sql">false</property>
         <property name="hbm2ddl.auto">validate</property>
      
-        <mapping class="com.smalaca.basicentity.Person"/>
+        <mapping class="com.smalaca.domain.basicentity.Person"/>
 		 
     </session-factory>
 </hibernate-configuration>

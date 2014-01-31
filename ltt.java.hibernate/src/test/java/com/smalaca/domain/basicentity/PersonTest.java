@@ -1,8 +1,9 @@
-package com.smalaca.basicentity;
+package com.smalaca.domain.basicentity;
 
 import static org.junit.Assert.*;
 import org.junit.Test;
-import com.smalaca.basicentity.Person;
+
+import com.smalaca.domain.basicentity.Person;
 
 public class PersonTest {
 

@@ -1,4 +1,4 @@
-package com.smalaca.basicentity;
+package com.smalaca.domain.basicentity;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;

@@ -1,4 +1,4 @@
-package com.smalaca.basicentity;
+package com.smalaca.domain.basicentity;
 
 public class IdentityCard {
 
