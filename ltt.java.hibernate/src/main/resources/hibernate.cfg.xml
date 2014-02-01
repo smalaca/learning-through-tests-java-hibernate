@@ -18,6 +18,7 @@
         <property name="hbm2ddl.auto">validate</property>
      
         <mapping class="com.smalaca.domain.basicentity.Person"/>
+        <mapping class="com.smalaca.domain.enumeration.Task"/>
 		 
     </session-factory>
 </hibernate-configuration>

@@ -10,15 +10,17 @@ public class TaskTest {
 
 	@Test
 	public void newTaskWithToDoStatusAndDefaultPriority() {
-		Task task = new Task();
+		String coffee = "Drink coffee";
+        Task task = new Task(coffee);
 		
+        assertEquals(coffee, task.getTitle());
 		assertTrue(task.checkStatus(Status.TODO));
 		assertEquals(Priority.MEDIUM, task.getPriority());
 	}
 	
 	@Test
 	public void taskInProgress() {
-		Task task = new Task();
+		Task task = new Task("Write some code");
 		task.startWorkingOn();
 		
 		assertTrue(task.checkStatus(Status.IN_PROGRESS));
@@ -26,7 +28,7 @@ public class TaskTest {
 	
 	@Test
 	public void resolvedTaks() {
-		Task task = new Task();
+		Task task = new Task("Write a blog post");
 		task.resolve();
 		
 		assertTrue(task.checkStatus(Status.RESOLVED));
@@ -34,7 +36,7 @@ public class TaskTest {
 	
 	@Test
 	public void doneTask() {
-		Task task = new Task();
+		Task task = new Task("Don't forget about tests!");
 		task.done();
 		
 		assertTrue(task.checkStatus(Status.DONE));	
@@ -42,7 +44,7 @@ public class TaskTest {
 	
 	@Test
 	public void revertStatusIntoToDo() throws TaskException {
-		Task task = new Task();
+		Task task = new Task("Go to sleep before 2 am.");
 		task.startWorkingOn();
 		task.revert();
 		
@@ -63,7 +65,7 @@ public class TaskTest {
 
 	@Test
 	public void cannotRevertStatusOfDoneTask() throws TaskException {
-		Task task = new Task();
+		Task task = new Task("Read a couple page of book");
 		task.done();
 		
 		thrown.expect(TaskException.class);
@@ -74,13 +76,13 @@ public class TaskTest {
 	
 	@Test
 	public void createTaskWithDifferentPriority() {
-		assertEquals(Priority.LOW, new Task(Priority.LOW).getPriority());
-		assertEquals(Priority.HIGH, new Task(Priority.HIGH).getPriority());
+		assertEquals(Priority.LOW, new Task("Do this", Priority.LOW).getPriority());
+		assertEquals(Priority.HIGH, new Task("Do that", Priority.HIGH).getPriority());
 	}
 	
 	@Test
 	public void changePriority() {
-		Task task = new Task();
+		Task task = new Task("Take small steps");
 		task.changePriority(Priority.LOW);
 		
 		assertEquals(Priority.LOW, task.getPriority());

@@ -1,50 +1,77 @@
 package com.smalaca.domain.enumeration;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Table;
+import javax.persistence.Transient;
+
+@Entity
+@Table(name="Task")
 public class Task {
 
-	private Status status = Status.TODO;
-	private Priority priority; 
+    @Id
+    @GeneratedValue
+    @Column(name="task_id")
+    private int id;
 
-	public Task() {
-		this(Priority.MEDIUM);
-	}
-	
-	public Task(Priority priority) {
-		changePriority(priority);
-	}
+    private String title;
 
-	public boolean checkStatus(Status status) {
-		return this.status.equals(status);
-	}
+    @Enumerated(EnumType.ORDINAL)
+    private Status status = Status.TODO;
+    
+    @Enumerated(EnumType.STRING)
+    private Priority priority;
 
-	public void startWorkingOn() {
-		changeStatus(Status.IN_PROGRESS);
-	}
+    public Task(String title) {
+        this(title, Priority.MEDIUM);
+    }
 
-	public void resolve() {
-		changeStatus(Status.RESOLVED);
-	}
+    public Task(String title, Priority priority) {
+        this.title = title;
+        changePriority(priority);
+    }
+    
+    public String getTitle() {
+        return title;
+    }
 
-	public void done() {
-		changeStatus(Status.DONE);
-	}
+    public boolean checkStatus(Status status) {
+        return this.status.equals(status);
+    }
 
-	public void revert() throws TaskException {
-		if (checkStatus(Status.DONE))
-			throw new TaskException("You cannot change status of task which was already done.");
-			
-		changeStatus(Status.TODO);
-	}
+    public void startWorkingOn() {
+        changeStatus(Status.IN_PROGRESS);
+    }
 
-	public Priority getPriority() {
-		return priority;
-	}
+    public void resolve() {
+        changeStatus(Status.RESOLVED);
+    }
 
-	public void changePriority(Priority priority) {
-		this.priority = priority;
-	}
+    public void done() {
+        changeStatus(Status.DONE);
+    }
 
-	private void changeStatus(Status status) {
-		this.status = status;
-	}
+    public void revert() throws TaskException {
+        if (checkStatus(Status.DONE))
+            throw new TaskException(
+                    "You cannot change status of task which was already done.");
+
+        changeStatus(Status.TODO);
+    }
+
+    public Priority getPriority() {
+        return priority;
+    }
+
+    public void changePriority(Priority priority) {
+        this.priority = priority;
+    }
+
+    private void changeStatus(Status status) {
+        this.status = status;
+    }
 }
